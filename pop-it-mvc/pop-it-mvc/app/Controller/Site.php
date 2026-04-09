@@ -7,6 +7,8 @@ use Src\View;
 use Src\Request;
 use Src\Validator\Validator;
 use function Collect\collection;
+use Src\Auth\Auth;
+
 
 class Site
 {

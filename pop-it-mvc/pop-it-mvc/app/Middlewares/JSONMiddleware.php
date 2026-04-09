@@ -16,7 +16,10 @@ class JSONMiddleware
         }
 
         //Получаем неструктурированные json данные и преобразуем их в массив
-        $data = json_decode(file_get_contents("php://input"), true) ?? [];
+        $data = json_decode(file_get_contents("php://input"), true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $data = [];
+        }
 
         //Массив сливаем в request
         collection($data)->each(function ($item, $key, $request) {
