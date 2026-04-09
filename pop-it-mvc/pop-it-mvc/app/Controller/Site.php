@@ -6,7 +6,7 @@ use Model\User;
 use Src\View;
 use Src\Request;
 use Src\Validator\Validator;
-use function Collect\collection;  // ДОБАВИТЬ ЭТУ СТРОКУ
+use function Collect\collection;
 
 class Site
 {
@@ -21,12 +21,10 @@ class Site
         return new View('site.hello', ['message' => 'hello working']);
     }
 
-    // ИЗМЕНЕННЫЙ МЕТОД signup С ИСПОЛЬЗОВАНИЕМ ПАКЕТА COLLECT
     public function signup(Request $request): string
     {
         if ($request->method === 'POST') {
 
-            // МОЖНО ИСПОЛЬЗОВАТЬ COLLECTION ДЛЯ ОБРАБОТКИ ДАННЫХ
             $data = collection($request->all())->toArray();
 
             $validator = new Validator($data, [
@@ -46,6 +44,7 @@ class Site
 
             if (User::create($data)) {
                 app()->route->redirect('/login');
+                // ДОБАВИТЬ ЭТУ СТРОКУ - возврат пустой строки
                 return '';
             }
         }
