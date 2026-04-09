@@ -9,3 +9,5 @@ try {
     print_r($exception);
     echo '</pre>';
 }
+
+session_start();
