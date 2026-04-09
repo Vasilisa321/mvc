@@ -18,7 +18,6 @@ class Application
     {
         $this->settings = $settings;
 
-        // ИЗМЕНЕННАЯ СТРОКА - вместо new Route() используем Route::single()
         $this->route = Route::single()->setPrefix($this->settings->getRootPath());
 
         $this->dbManager = new Capsule();

@@ -27,12 +27,17 @@ class Middleware
         $this->middlewareCollector->addGroup($prefix, $callback);
     }
 
-    public function runMiddlewares(string $httpMethod, string $uri, Request $request): Request
+    public function runMiddlewares(string $httpMethod, string $uri): Request
     {
+        $request = new Request();
+        //Получаем список всех разрешенных классов middlewares из настроек приложения
         $routeMiddleware = app()->settings->app['routeMiddleware'];
+
+        //Перебираем все middlewares для текущего адреса
         foreach ($this->getMiddlewaresForRoute($httpMethod, $uri) as $middleware) {
             $args = explode(':', $middleware);
-            $request = (new $routeMiddleware[$args[0]])->handle($request, $args[1] ?? null) ?? $request;
+            //Создаем объект и вызываем метод handle
+            (new $routeMiddleware[$args[0]])->handle($request, $args[1]?? null);
         }
         return $request;
     }
