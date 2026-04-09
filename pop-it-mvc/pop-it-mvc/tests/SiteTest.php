@@ -51,4 +51,6 @@ class SiteTest extends TestCase
             ['POST', ['name' => 'admin', 'login' => md5(time()), 'password' => 'admin'], 'Location: /pop-it-mvc/hello'],
         ];
     }
+
+
 }
